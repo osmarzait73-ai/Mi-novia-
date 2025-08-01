@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carta de Amor para Mi Novia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #ffd6e8, #ffe6f0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+    }
+
+    .carta {
+      background-color: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 450px;
+      z-index: 1;
+      animation: aparecer 1.2s ease;
+      position: relative;
+    }
+
+    h1 {
+      color: #e60073;
+    }
+
+    #mensaje, #respuestaFinal {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #444;
+      white-space: pre-line;
+    }
+
+    #intro {
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    button {
+      background-color: #e60073;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 5px;
+    }
+
+    button:hover {
+      background-color: #ff3385;
+    }
+
+    .oculto {
+      display: none;
+    }
+
+    .corazones-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .corazon {
+      position: absolute;
+      font-size: 20px;
+      animation: flotar 5s linear infinite;
+      color: red;
+      opacity: 0.7;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(100vh) scale(0.8) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    img {
+      width: 80%;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="corazones-container"></div>
+
+  <div class="carta">
+    <h1>Para Mi Amor 💖</h1>
+    <p id="intro">Haz clic en el botón para leer algo especial...</p>
+    <button id="mostrarMensaje">Mostrar Carta</button>
+
+    <div id="mensaje" class="oculto"></div>
+
+    <div id="pregunta" class="oculto">
+      <p style="margin-top: 30px;">¿Aún quieres ser mi novia por esta vida? 💍</p>
+      <button onclick="responder(true)">Sí, para siempre ❤️</button>
+      <button onclick="responder(false)">No, ya no 😢</button>
+    </div>
+
+    <div id="respuestaFinal" class="oculto" style="margin-top: 30px; font-size: 18px; color: #e60073;"></div>
+
+    <!-- Imagen estilo caricatura (tipo Pucca) -->
+    <img src="https://i.pinimg.com/736x/bf/e2/3f/bfe23f30414cb8b01b33b6ad070e9e4c.jpg" alt="Pareja adorable">
+  </div>
+
+  <script>
+    const mensajeTexto = `Desde que entraste en mi vida, todo ha cobrado sentido de una forma que nunca imaginé. ✨
+Tu risa se volvió mi melodía favorita, y tus abrazos el lugar donde todo está bien. 💞
+
+No hay un solo día que no piense en ti, en lo hermosa que eres por dentro y por fuera, en lo mucho que me haces crecer, reír, soñar... y amar. 💖
+Contigo aprendí que el amor no se trata de encontrar a alguien perfecto, sino de amar profundamente a alguien real. Y tú, amor mío, eres lo más real y perfecto que me ha pasado. 🌹
+
+Gracias por acompañarme en mis días buenos y en los no tan buenos. Gracias por no soltarme, por entenderme, por apoyarme incluso cuando ni yo me entiendo. 🫂
+Tu amor es mi refugio, mi motor, mi hogar. 🏠
+
+Quisiera poder regalarte cada estrella del cielo, cada flor del campo, cada segundo de mi vida, porque todo lo que tengo y soy, quiero compartirlo contigo. 🕊️
+
+Te amo más de lo que las palabras pueden decir, más de lo que el tiempo puede medir. 🕰️❤️
+
+Por eso hoy, solo tengo una pregunta que me sale desde lo más profundo del alma...
+
+¿Aún quieres ser mi novia por esta vida? 🌍💍`;
+
+    const boton = document.getElementById("mostrarMensaje");
+    const mensajeDiv = document.getElementById("mensaje");
+    const preguntaDiv = document.getElementById("pregunta");
+    const respuestaFinal = document.getElementById("respuestaFinal");
+    let index = 0;
+
+    boton.addEventListener("click", () => {
+      boton.style.display = "none";
+      document.getElementById("intro").style.display = "none";
+      mensajeDiv.classList.remove("oculto");
+      escribirTexto();
+    });
+
+    function escribirTexto() {
+      if (index < mensajeTexto.length) {
+        mensajeDiv.innerHTML += mensajeTexto.charAt(index);
+        index++;
+        setTimeout(escribirTexto, 35);
+      } else {
+        preguntaDiv.classList.remove("oculto");
+      }
+    }
+
+    function responder(acepta) {
+      preguntaDiv.style.display = "none";
+      if (acepta) {
+        respuestaFinal.innerHTML = "¡Me haces el ser más feliz del universo! 💖 Te amo infinitamente 😍✨";
+      } else {
+        respuestaFinal.innerHTML = "Aunque duela... siempre te recordaré con amor 💔🥀";
+      }
+      respuestaFinal.classList.remove("oculto");
+    }
+
+    // Corazones flotantes animados
+    function crearCorazon() {
+      const corazon = document.createElement("div");
+      corazon.classList.add("corazon");
+      corazon.innerHTML = "❤️";
+      corazon.style.left = Math.random() * 100 + "vw";
+      corazon.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      document.querySelector(".corazones-container").appendChild(corazon);
+      setTimeout(() => corazon.remove(), 5000);
+    }
+
+    setInterval(crearCorazon, 500);
+  </script>
+</body>
+</html>
